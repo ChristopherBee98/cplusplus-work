@@ -1,0 +1,130 @@
+#include "LinkedList.h"
+
+//name: LinkedList (default constructor)
+//pre: None
+//post: new linked list where m_head points to NULL
+LinkedList::LinkedList() {
+  m_head = NULL;
+}
+
+//name: LinkedList (destructor)
+//pre: There is an existing linked list
+//post: A linked list is deallocated (including nodes) to have no memory leaks!
+LinkedList::~LinkedList() {
+  LinkedList::Clear();
+}
+
+//name: CreateNode
+//pre: Takes in an int and a string
+//post: Dynamically creates a new node with a pointer to the next item plus the int
+// and string
+Node* LinkedList::CreateNode(int newInt, string newPayload) {
+  Node* newNode = new Node;
+  Node* currentPtr;
+  newNode->m_next = NULL;
+  newNode->m_int = newInt;
+  newNode->m_payload = newPayload;
+  if (m_head != NULL) {
+    currentPtr = m_head;
+    while (currentPtr->m_next != NULL) {
+      currentPtr = currentPtr->m_next;
+    }
+    currentPtr->m_next = newNode;
+  } else {
+    m_head = newNode;
+  }
+  return newNode;
+}
+
+//name: InsertEnd
+//pre: Takes in an int and a string. Requires a linked list
+//post: Adds a new node to the end of the linked list.
+void LinkedList::InsertEnd(int newInt, string newPayload){
+  Node* newNode = new Node;
+  Node* currentPtr = m_head;
+  newNode->m_int = newInt;
+  newNode->m_payload = newPayload;
+  while (currentPtr != NULL) {
+    currentPtr = currentPtr->m_next;
+  }
+  currentPtr->m_tail = newNode;
+  newNode->m_tail = NULL;
+}
+
+//name: Display
+//pre: Outputs the linked list (raw or encrypted)
+//post: None
+void LinkedList::Display(){
+  Node* currentPtr = m_head;
+  while (currentPtr != NULL) {
+    cout << currentPtr->m_int << endl;
+    cout << currentPtr->m_payload << endl;
+    currentPtr = currentPtr->m_next;
+  }
+}
+
+//name: Sort
+//pre: Takes in a linked list
+//post: Sorts the linked list by integer (either raw or decrypted)
+void LinkedList::Sort(){
+  Node* currentPtr = m_head;
+  while (currentPtr != NULL) {
+    
+}
+
+//name: IsEmpty
+//pre: Takes in a linked list
+//post: Checks to see if the linked list is empty or not
+bool LinkedList::IsEmpty(){
+  if (m_head == NULL) {
+    return true;
+  } else {
+    return false;
+  }
+}
+//name: Decrypt
+//pre: Takes in a linked list
+//post: Returns a linked list where any nodes where the int is NOT a perfect square
+// or perfect cube is thrown out. Also, returns the square root (for perfect squares)
+// or cubed root (for perfect cubes).
+// For example, "121 candy" goes in - "11 candy" comes out.
+LinkedList LinkedList::Decrypt(){
+  
+}
+//name: isPerfectSquare
+//pre: Takes in an integer
+//post: Returns if it is a perfect square or not
+bool LinkedList::IsPerfectSquare(int n){
+  tempInt = round(sqrt(n));
+  tempInt2 = tempInt*tempInt;
+  if (tempInt2 == n) {
+    return true;
+  } else {
+    return false;
+  }
+}
+//name: isPerfectCube
+//pre: Takes in an integer
+//post: Returns if it is a perfect cube or not
+bool LinkedList::IsPerfectCube(int n){
+  tempInt = round(cbrt(n));
+  tempInt2 = tempInt*tempInt*tempInt;
+  if (tempInt2 == n) {
+    return true;
+  } else {
+    return false;
+  }
+}
+//name Clear
+//pre: Takes in a linked list
+//post: Clears out the linked list (all nodes too)
+void LinkedList::Clear(){
+  Node* currentPtr = m_head;
+  while (currentPtr != NULL) {
+    m_next = currentPtr->m_next;
+    delete currentPtr;
+    currentPtr = m_next;
+  }
+  delete m_head;
+  m_head = NULL;
+}

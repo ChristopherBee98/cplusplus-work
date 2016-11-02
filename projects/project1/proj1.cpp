@@ -1,0 +1,305 @@
+/*
+File:    Proj1.cpp
+Project: CMSC 202 Project 1, Fall 2016
+Author:  Austin Bailey
+Date:    9/24/16
+Section: 101
+E-mail:  baustin1@umbc.edu
+ 
+This file contains the main driver program for Project 1.
+This program is designed to take in commands from the keyboard
+and deposit/withdraw money from an account. You're also able to
+save an account to a text file, which can be loaded as well.
+*/
+
+#include "proj1.h"
+
+string insertFirstName();
+string insertLastName();
+int insertAge();
+float insertInitialDeposit();
+void saveToFile(string fName, string lName, int age, float accountBalance);
+
+/* Name: main()
+Preoondition: Starting up the program
+Postcondition: Returns 0
+*/
+int main () {
+  fstream inputStream;
+  int choiceAccount, check = 0, check2 = 0, choiceInAccount, age;
+  string fName, lName, yesOrNo;
+  float accountBalance;
+  choiceAccount = menuStart();
+  //checks for which option by the user
+  if (choiceAccount == 1) {
+    cout.setf(ios::fixed);
+    cout.setf(ios::showpoint);
+    cout.precision(2);
+    inputStream.open("proj1.txt");
+    //reads through and assigns the values in the text file to the variables
+    inputStream >> fName >> lName >> age >> accountBalance;
+    inputStream.close();
+  } else if (choiceAccount == 2) {
+    cout << "Please enter the following: " << endl;
+    fName = insertFirstName();
+    lName = insertLastName();
+    age = insertAge();
+    accountBalance = insertInitialDeposit();
+  } else {
+    return 0;
+  }
+  //keeps loop going until user wants to exit
+  while (check == 0) {
+    choiceInAccount = menuMain();
+    //checks to see which option user chose
+    if (choiceInAccount == 1) {
+      displayBalance(accountBalance);
+    } else if (choiceInAccount == 2) {
+      deposit(accountBalance);
+    } else if (choiceInAccount == 3) {
+      withdraw(accountBalance);
+    } else if (choiceInAccount == 4) {
+      displayAccountDetails(fName, lName, age, accountBalance);
+    } else {
+      //ends the loop when the user exits
+      check++;
+      cout << "Would you like to save your account information? (yes or no)" << endl;
+      cin >> yesOrNo;
+      while (check2 == 0) {
+	if (yesOrNo == "yes") {
+	  check2++;
+	  saveToFile(fName, lName, age, accountBalance);
+	  cout << "Thank you for using UMBC ATM." << endl;
+	} else if (yesOrNo == "no") {
+	  check2++;
+	  cout << "Thank you for using UMBC ATM." << endl;
+	} else {
+	  //makes sure that the user enters yes or no specifically
+	  cout << "You must enter yes or no." << endl;
+	  cout << "Would you like to save your account information? (yes or no)" << endl;
+	  cin >> yesOrNo;
+	}
+      }
+  }
+  }
+  return 0;
+}
+/*
+Name: menuStart()
+Precondition: When the user has first started up the program
+Postcondition: Returns the choice given
+*/
+
+int menuStart() {
+  int check = 0;
+  int choice;
+  while (check == 0) {
+    cout << "Welcome to the UMBC ATM" << endl;
+    cout << "Choose from below: " << endl;
+    cout << "1. Load a User Profile from File" << endl;
+    cout << "2. Enter a new User Profile" << endl;
+    cout << "3. Exit" << endl;
+    cout << "Enter your choice: ";
+    cin >> choice;
+    //assigns a switch case to determine which option is to be executed
+    switch (choice) {
+    case 1:
+      return choice;
+      break;
+    case 2:
+      return choice;
+      break;
+    case 3:
+      check++;
+      cout << "See you later!" << endl;
+      return choice;
+      break;
+    default:
+      cout << "Please enter a valid number." << endl;
+      break;
+    }
+  }
+  return 0;
+}
+/*
+Name: insertFirstName()
+Precondition: When a user has selected to create a new account
+Postcondition: Returns the inputed first name
+*/
+
+string insertFirstName() {
+  string fName;
+  cout << "First Name: " << endl;
+  cin >> fName;
+  return fName;
+}
+/*
+Name: insertLastName()
+Precondition: When a user has selected to create a new account
+Postcondition: Returns the inputed last name
+*/
+
+string insertLastName() {
+  string lName;
+  cout << "Last Name: " << endl;
+  cin >> lName;
+  return lName;
+}
+/*
+Name: insertAge()
+Precondition: When a user has selected to create a new account
+Postcondition: Returns the inputed age
+*/
+
+int insertAge() {
+  int age;
+  cout << "Age: " << endl;
+  cin >> age;
+  return age;
+}
+/*
+Name: insertInitialDeposit()
+Precondition: When a user has selected to create a new account and is depositing a fresh amount of money
+Postcondition: Returns the initial deposit of cash
+*/
+
+float insertInitialDeposit() {
+  float initDeposit;
+  //sets the input that the user enters to 2 decimal places
+  cout.setf(ios::fixed);
+  cout.setf(ios::showpoint);
+  cout.precision(2);
+  cout << "Initial Deposit: " << endl;
+  cin >> initDeposit;
+  cout << "Deposited $" << initDeposit << endl;
+  return initDeposit;
+}
+/*
+Name: saveToFile(string fName, string lName, int age, float accountBalance)
+Precondition: When a user has selected to save their current information
+Postcondition: None
+*/
+
+void saveToFile(string fName, string lName, int age, float accountBalance) {
+  fstream outputStream;
+  cout.setf(ios::fixed);
+  cout.setf(ios::showpoint);
+  cout.precision(2);
+  outputStream.open("proj1.txt");
+  //writes the information to the text file
+  outputStream << fName << " " << lName << " " << age << " " << accountBalance;
+  outputStream.close();
+  cout << "File Saved." << endl;
+}
+/*
+Name: menuMain()
+Precondition: When a user has loaded a profile or created a new one
+Postcondition: Returns selected choice 
+*/
+
+int menuMain() {
+  int choice;
+  int check = 0;
+  while (check == 0) {
+    cout << "********Please choose from the menu********" << endl;
+    cout << "1. Account Balance" << endl;
+    cout << "2. Deposit money" << endl;
+    cout << "3. Withdraw money" << endl;
+    cout << "4. Display your account details" << endl;
+    cout << "5. Exit" << endl;
+    cout << "Enter your choice: " << endl;
+    cin >> choice;
+    //another switch case that have options which could be executed
+    switch (choice) {
+    case 1:
+      return choice;
+      break;
+    case 2:
+      return choice;
+      break;
+    case 3:
+      return choice;
+      break;
+    case 4:
+      return choice;
+      break;
+    case 5:
+      check++;
+      break;
+    default:
+      //if the user enters a non valid number, it will give them infinite retries until they do
+      cout << "Please enter a valid number." << endl;
+      break;
+    }
+  }
+  return 0;
+}
+
+/*
+Name: displayAccountDetails
+PreCondition: Relevant data (fName, lName, age, accountBalance) has been loaded/entered
+PostCondition: None (void)
+*/
+
+void displayAccountDetails(string fName, string lName, int age, float accountBalance){
+  cout << "First Name: " << fName << endl;
+  cout << "Last Name: " << lName << endl;
+  cout << "Age: " << age << endl;
+  cout << "Account Balance: $" << accountBalance << endl;
+ }
+
+ /*
+Name: displayBalance
+PreCondition: Relevant data (accountBalance) has been loaded/entered
+PostCondition: None (void)
+ */
+
+void displayBalance(float accountBalance) {
+  cout << "Account Balance: $" << accountBalance << endl;
+}
+
+/*
+Name: deposit
+PreCondition: Variable accountBalance is passed-by-reference
+PostCondition: accountBalance is permanently changed via pass-by-reference
+*/
+
+void deposit(float &accountBalance){
+  float depositAmount;
+  //sets the decimal place to 2
+  cout.setf(ios::fixed);
+  cout.setf(ios::showpoint);
+  cout.precision(2);
+  cout << "Please enter the amount to be deposited: " << endl;
+  cin >> depositAmount;
+  if (depositAmount > 0) {
+    accountBalance += depositAmount;
+    cout << "$" << depositAmount << " has been deposited into your account." << endl;
+  } else {
+    cout << "Amount should be greater than 0." << endl;
+ }
+}
+ /*
+Name: withdraw
+PreCondition: Variable accountBalance is passed-by-reference
+PostCondition: accountBalance is permanently changed via pass-by-reference
+ */
+
+void withdraw(float &accountBalance) {
+  float withdrawnAmount;
+  //sets decimal place to 2
+  cout.setf(ios::fixed);
+  cout.setf(ios::showpoint);
+  cout.precision(2);
+  cout << "Please enter the amount to be withdrawn: " << endl;
+  cin >> withdrawnAmount;
+  if (withdrawnAmount <= accountBalance) {
+    accountBalance -= withdrawnAmount;
+    cout << "$" << withdrawnAmount << " withdrawn from your account." << endl;
+  } else if ((withdrawnAmount > accountBalance) && (withdrawnAmount > 0)){
+    //makes sure the user can't withdraw more than whats in their account
+    cout << "Amount can not be more than $" << accountBalance << endl;
+  } else {
+    cout << "Amount can't be less than 0." << endl;
+  }
+}

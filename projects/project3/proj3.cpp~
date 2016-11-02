@@ -1,0 +1,54 @@
+#include "LinkedList.h"
+#include "proj3.h"
+
+int main () {
+  LinkedList list;
+  mainMenu(list);
+  return 0;
+}
+
+void readFile(LinkedList &list){
+
+}
+
+void mainMenu(LinkedList &list){
+  int option = 0;
+  bool isExit = 0;
+  do {
+    do {
+      cout << "What would you like to do?: " << endl;
+      cout << "1. Load a new encrypted message" << endl;
+      cout << "2. Display a raw message" << endl;
+      cout << "3. Display an encrypted message" << endl;
+      cout << "4. Exit" << endl;
+      cin >> option;
+    }while(option < 1 || option > 4);
+
+    switch(option){
+    case 1:
+      readFile(list);
+      break;
+    case 2:
+      displayMessage(list);
+      break;
+    case 3:
+      displayEncrypt(list);
+      break;
+    case 4:
+      exitLinked(list);
+      isExit = 1;
+    }
+  }while(isExit == 0);
+}
+
+void displayMessage(LinkedList &list){
+
+}
+
+void exitLinked(LinkedList &list){
+
+}
+
+void displayEncrypt(LinkedList &list){
+
+}
