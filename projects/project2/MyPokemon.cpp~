@@ -1,0 +1,100 @@
+/*
+File:    MyPokemon.cpp
+Project: CMSC 202 Project 2, Fall 2016
+Author:  Austin Bailey
+Date:    10/16/16
+Section: 101
+E-mail:  baustin1@umbc.edu
+
+This file takes in paramaters and creates a MyPokemon object.
+It takes in the number of the Pokemon, the name of the Pokemon, the
+combat points of the Pokemon, the hit points of the Pokemon, and the rarity
+of the Pokemon. It then constructs the Pokemon object.
+*/
+
+
+#include "MyPokemon.h"
+
+MyPokemon::MyPokemon() {
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+MyPokemon::MyPokemon(int num, string name, int cp, int hp, int rarity) {
+  m_Num = num;
+  m_Name = name;
+  m_CP = cp;
+  m_HP = hp;
+  m_Rarity = rarity;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+int MyPokemon::GetCP() {
+  return m_CP;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+int MyPokemon::GetHP() {
+  return m_HP;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+int MyPokemon::GetRarity() {
+  return m_Rarity;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+string MyPokemon::GetName() {
+  return m_Name;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+int MyPokemon::GetNum() {
+  return m_Num;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+void MyPokemon::SetRarity(int newRarity) {
+  m_Rarity = newRarity;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+void MyPokemon::SetName(string newName) {
+  m_Name = newName;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+void MyPokemon::SetHP(int newHP) {
+  m_HP = newHP;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+void MyPokemon::SetCP(int newCP) {
+  m_CP = newCP;
+}
+
+// Name: getPokeDex(vector)
+// Pre-condition: When the application loads, loads the complete pokemon list from file
+// Post-condition: Returns a populated pokeDex vector
+void MyPokemon::Train() {
+  m_CP += 10;
+}

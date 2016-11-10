@@ -1,1 +1,7 @@
 20 Raticate 690 68 3
+23 Ekans 320 14 1
+128 Tauros 626 62 4
+39 Jigglypuff 488 47 2
+135 Jolteon 1009 100 5
+1 Bulbasaur 1082 106 2
+91 Cloyster 2206 220 5

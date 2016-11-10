@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+
+void extraCredit()
+
+int main() {
+  int scoreOne, scoreTwo;
+  cout << "Enter score 1: " << endl;
+  cin >> scoreOne;
+  cout << "Enter score 2: " << endl;
+  cin >> scoreTwo;
+  return 0;
+}

@@ -250,8 +250,13 @@ void mainMenu(vector <Pokemon> & pokeDex, vector<MyPokemon> & myCollection){
    if (choosePoke >= 0 && choosePoke <= ((int)myCollection.size()-1)) {
      //trains the Pokemon by adding 10 cp to its cp count
      myCollection.at(choosePoke).Train();
-     cout << "Your " << myCollection.at(choosePoke).GetName() << " trained." << endl;
-     cout << "Your CP is now " << myCollection.at(choosePoke).GetCP() << "." << endl;
+     if (myCollection.at(choosePoke).GetCP() >= pokeDex.at(myCollection.at(choosePoke).GetNum()).GetCPMax()) {
+       myCollection.at(choosePoke).SetCP(pokeDex.at(myCollection.at(choosePoke).GetNum()).GetCPMax());
+       cout << "Your " << myCollection.at(choosePoke).GetName() << " is fully trained." << endl;
+     } else {
+       cout << "Your " << myCollection.at(choosePoke).GetName() << " trained." << endl;
+       cout << "Your CP is now " << myCollection.at(choosePoke).GetCP() << "." << endl;
+     }
    } else {
    }
 }
