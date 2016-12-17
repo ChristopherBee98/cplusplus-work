@@ -1,0 +1,132 @@
+/*
+File:    Spaceship.h
+Project: CMSC 202 Project 5, Fall 2016
+Author:  Austin Bailey
+Date:    12/11/16
+Section: 101
+E-mail:  baustin1@umbc.edu
+
+This file is used as a templated class for Spaceships of both the Item
+and Person types. Each templated spaceship contains its own cargo hold with
+a vector of item or person objects.
+*/
+
+#ifndef SPACESHIP_H
+#define SPACESHIP_H
+
+#include "Item.h"
+#include "Person.h"
+
+#include <vector>
+#include <sstream> //Used to concatenate a string that includes numbers
+#include <iomanip> //Used to format weights to make more sense
+
+using namespace std;
+
+template <class T>
+class Spaceship
+{
+ public:
+  //Name: Spaceship
+  //Default constructor 
+  Spaceship() {
+  }
+  
+  //Name: Spaceship(string, string, double) Overloaded constructor.
+  //Precondition: Requires ship file has been loaded
+  //Postcondition: Builds a new templated ship
+  Spaceship(string inName, string inType, double inCapacity) {
+    m_name = inName;
+    m_type = inType;
+    m_capacity = inCapacity;
+  }
+
+  //Name: GetCargo
+  //Precondition: Requires that the ship's cargo has been populated
+  //Postcondition: Templated accessor for this ship's cargo
+  vector<T> GetCargo() const {
+    return m_cargo;
+  }
+  //Name: GetCargoAt
+  //Precondition: Requires that the ship's cargo has been populated
+  //Postcondition: Templated accessor for this ship's cargo at a specific location
+  const T& GetCargoAt(int index) const {
+    return m_cargo.at(index);
+  }
+
+  //Name: AddCargo
+  //Precondition: Requires that the ships have been loaded
+  //Postcondition: Adds an item into this ship
+  void AddCargo(T inputObject) {
+    m_cargo.push_back(inputObject);
+  }
+  //Name: ToString
+  //Precondition: Requires that the ships and cargo have been loaded
+  //Postcondition: Used to output information about a specific ship
+  string ToString() const {
+    //for file outputting
+    ostringstream stringStream;
+    string listOfCargo;
+    for (int i = 0; i < (int)m_cargo.size(); i++) {
+      listOfCargo += m_cargo.at(i).ToString();
+    }
+    stringStream << "**Ship Name: " << m_name << "**" << "\n" << listOfCargo;
+    string concString = stringStream.str();
+    return concString;
+  }
+  //Name: GetCapacity
+  //Precondition: Requires that the ships have been loaded
+  //Postcondition: Used to access the capacity of a ship
+  double GetCapacity() const {
+    return m_capacity;
+  }
+  //Name: GetName
+  //Precondition: Requires that the ships have been loaded
+  //Postcondition: Used to access the name of a ship
+  string GetName() const {
+    return m_name;
+  }
+
+  //Name: operator> (Overloaded) Both ships are templated!
+  //Precondition: Requires two ships
+  //Postcondition: Returns which ship heavier including cargo
+  template <class U>
+  bool operator>( Spaceship<U> &otherShip) {
+    vector<U> otherCargo = otherShip.GetCargo();
+    double weight1 = 0, weight2 = 0;
+    for (int i = 0; i < (int)m_cargo.size(); i++)
+      weight1 += m_cargo.at(i).GetWeight();
+    for (int j = 0; j < (int)otherCargo.size(); j++)
+      weight2 += otherCargo.at(j).GetWeight();
+    if (weight2 > weight1)
+      return true;
+    else
+      return false;
+  }
+  //Name: operator< (Overloaded) Both ships are templated!
+  //Precondition: Requires two ships
+  //Postcondition: Returns which ship lighter including cargo
+  template <class U>
+  bool operator<( Spaceship<U> &otherShip) {
+    vector<U> otherCargo = otherShip.GetCargo();
+    double weight1 = 0, weight2 = 0;
+    for (int i = 0; i < (int)m_cargo.size(); i++)
+      weight1 += m_cargo.at(i).GetWeight();
+    for (int j = 0; j < (int)otherCargo.size(); j++)
+      weight2 += otherCargo.at(j).GetWeight();
+    if (weight2 < weight1)
+      return true;
+    else
+      return false;
+  }
+
+private:
+  string m_name;
+  string m_type;
+  double m_capacity;
+  vector<T> m_cargo;	
+};
+//*************************************************************
+//You need to implement all of this code - it is templated so we can't split the file
+
+#endif

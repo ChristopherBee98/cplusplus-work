@@ -1,0 +1,29 @@
+//Comments
+#include <iostream>
+#include <limits>
+using namespace std;
+
+int testValid();
+const int MIN_RANGE = 0;
+const int MAX_RANGE = 100;
+
+int main() {
+  int num = 0;
+  int num2 = 0;
+  num = testValid();
+
+  cout << "Testing buffer" << endl;
+  cin >> num2;
+  cout << num2 << endl;
+  return 0;
+}
+
+int testValid() {
+  int num = 0;
+  while ((cout << "Enter a number between " << MIN_RANGE << " and " << MAX_RANGE << ":" << endl) && !(cin >> num) || (num < MIN_RANGE) || (num > MAX_RANGE)) {
+    cin.clear(); //clear bad input flag
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); //discard input
+    cout << "Invalid input; please re-enter." << endl;
+  }
+  return num;
+}

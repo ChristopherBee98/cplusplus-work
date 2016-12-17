@@ -1,0 +1,58 @@
+/*
+File:    Person.cpp
+Project: CMSC 202 Project 5, Fall 2016
+Author:  Austin Bailey
+Date:    12/11/16
+Section: 101
+E-mail:  baustin1@umbc.edu
+
+This file is used as a file for creating person objects. It has accessors,
+mutators and a ToString function that is used for outputting to a file.
+*/
+
+#include "Person.h"
+
+// Constructors for Person
+Person::Person() {
+}
+
+Person::Person(string infName, string inlName, double inWeight, int inAge, int inId) {
+  m_id = inId;
+  m_fName = infName;
+  m_lName = inlName;
+  m_age = inAge;
+  m_weight = inWeight;
+}
+
+// Accesssors for Person
+int Person::GetId() const {
+  return m_id;
+}
+
+string Person::GetFName() const {
+  return m_fName;
+}
+
+string Person::GetLName() const {
+  return m_lName;
+}
+
+int Person::GetAge() const {
+  return m_age;
+}
+
+double Person::GetWeight() const {
+  return m_weight;
+}
+
+// Name: ToString
+// Precondition: Needs a Person object to create output string
+// Postcondition: Creates a single string for output
+string Person::ToString() const {
+  ostringstream stringStream;
+  //for printing out to the file
+  stringStream << m_fName << " " << m_lName << "\n";
+  string concString = stringStream.str();
+  return concString;
+}
+

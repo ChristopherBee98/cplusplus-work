@@ -7,8 +7,6 @@ class Triangle : public Shape{
   Triangle(double side1, double side2);
   Triangle(double side1, double side2, double side3);
   double GetSide3();
-  double GetArea();
-  double GetPerimeter();
  private:
   double m_side1;
   double m_side2;
